@@ -1,0 +1,74 @@
+<%@page import="java.sql.DriverManager, java.sql.ResultSet, java.sql.Statement, java.sql.Connection, com.db.DB_Connection" %>
+<%
+if(session.getAttribute("username") == null)
+	response.sendRedirect("login.jsp");
+%>
+
+<h2 align="center"><font><strong>Add/Edit/Delete Driver</strong></font></h2>
+<table align="center" cellpadding="5" cellspacing="5" border="1">
+<tr>
+
+</tr>
+<tr bgcolor="#A52A2A">
+<td><b>driver number plate</b></td>
+<td><b>name</b></td>
+<td><b>address</b></td>
+<td><b>phone</b></td>
+<td><b>option</b></td>
+<td><b>option</b></td>
+</tr>
+
+<%
+DB_Connection db_obj = new DB_Connection();
+Connection con = db_obj.getConnection();
+
+try{ 
+Statement stmt = con.createStatement();
+String sql ="SELECT * FROM Drivers";
+ResultSet rs = stmt.executeQuery(sql);
+	while(rs.next())
+	{
+%>
+
+<tr bgcolor="#DEB887">
+<td><%=rs.getString("driver_id") %></td>
+<td><%=rs.getString("driver_name") %></td>
+<td><%=rs.getString("driver_address") %></td>
+<td><%=rs.getString("driver_phone") %></td>
+<td>
+    <form action="editdriver.jsp" method="post">
+        <input type="submit" name="edit_user" value="Edit" />
+        <input type="hidden" name="did" value="<%=rs.getString("driver_id")%>" />
+    </form>
+</td>
+<td>
+    <form action="DeleteDriver" method="post">
+        <input type="submit" name="delete_user" value="Delete" />
+        <input type="hidden" name="did" value="<%=rs.getString("driver_id")%>" />
+    </form>
+</td>
+</tr>
+
+<% 
+	}
+}
+catch (Exception e)
+{
+	e.printStackTrace();
+}
+con.close();
+%>
+
+<form action="AddDriver" method="post">
+<tr bgcolor="#DEB887">
+<td><input type="text" name="did"><br></td>
+<td><input type="text" name="dname"><br></td>
+<td><input type="text" name="daddress"><br></td>
+<td><input type="text" name="dphone"><br></td>
+<td><input type="submit" value="Add"></td>
+<td></td>
+</tr>
+</form>
+
+</table>
+

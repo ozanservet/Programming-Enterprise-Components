@@ -1,0 +1,8 @@
+INDEX VERSION 1.4+C:\Users\Ozkan\Desktop\CodingProjects\MyGithub\Programing_Enterprise_Components\calismalar\github_studies\samee\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+1158764587.index
+2665936211.index
+1811722076.index
+2753198312.index
+1738772656.index
+3829941724.index
+3783335825.index

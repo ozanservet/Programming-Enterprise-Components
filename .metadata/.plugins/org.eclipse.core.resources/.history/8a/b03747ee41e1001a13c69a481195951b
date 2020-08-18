@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1"> 
+  <display-name>TaxiDriverRestAPI</display-name>
+
+    <servlet>
+  	<servlet-name>Login</servlet-name>
+  	<servlet-class>com.servlets.Login</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Login</servlet-name>
+  	<url-pattern>/Login</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+  	<servlet-name>Operations</servlet-name>
+  	<servlet-class>com.servlets.Operations</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Operations</servlet-name>
+  	<url-pattern>/Operations</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AddDriver</servlet-name>
+    <servlet-class>com.servlets.AddDriver</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddDriver</servlet-name>
+    <url-pattern>/AddDriver</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>DeleteDriver</servlet-name>
+    <servlet-class>com.servlets.DeleteDriver</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteDriver</servlet-name>
+    <url-pattern>/DeleteDriver</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>EditDriver</servlet-name>
+    <servlet-class>com.servlets.EditDriver</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditDriver</servlet-name>
+    <url-pattern>/EditDriver</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AddQualification</servlet-name>
+    <servlet-class>com.servlets.AddQualification</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddQualification</servlet-name>
+    <url-pattern>/AddQualification</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>DeleteQualification</servlet-name>
+    <servlet-class>com.servlets.DeleteQualification</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteQualification</servlet-name>
+    <url-pattern>/DeleteQualification</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>EditQualification</servlet-name>
+    <servlet-class>com.servlets.EditQualification</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditQualification</servlet-name>
+    <url-pattern>/EditQualification</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AddTraining</servlet-name>
+    <servlet-class>com.servlets.AddTraining</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddTraining</servlet-name>
+    <url-pattern>/AddTraining</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>DeleteTraining</servlet-name>
+    <servlet-class>com.servlets.DeleteTraining</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteTraining</servlet-name>
+    <url-pattern>/DeleteTraining</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>EditTraining</servlet-name>
+    <servlet-class>com.servlets.EditTraining</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditTraining</servlet-name>
+    <url-pattern>/EditTraining</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AddSession</servlet-name>
+    <servlet-class>com.servlets.AddSession</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddSession</servlet-name>
+    <url-pattern>/AddSession</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Assign</servlet-name>
+    <servlet-class>com.servlets.Assign</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Assign</servlet-name>
+    <url-pattern>/Assign</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Outcome</servlet-name>
+    <servlet-class>com.servlets.Outcome</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Outcome</servlet-name>
+    <url-pattern>/Outcome</url-pattern>
+  </servlet-mapping>
+  
+ <servlet>
+    <servlet-name>DriverProfile</servlet-name>
+    <servlet-class>com.servlets.DriverProfile</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DriverProfile</servlet-name>
+    <url-pattern>/DriverProfile</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>AddDisciplinaryRec</servlet-name>
+    <servlet-class>com.servlets.AddDisciplinaryRec</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddDisciplinaryRec</servlet-name>
+    <url-pattern>/AddDisciplinaryRec</url-pattern>
+  </servlet-mapping>
+  
+</web-app>

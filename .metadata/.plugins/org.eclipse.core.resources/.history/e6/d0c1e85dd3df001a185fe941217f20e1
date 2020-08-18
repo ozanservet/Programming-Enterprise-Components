@@ -1,0 +1,77 @@
+package com.servlets;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class AddOutcome
+ */
+@WebServlet("/AddOutcome")
+public class AddOutcome extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public AddOutcome() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String driverid = request.getParameter("did");
+		int drv_id = 0;
+		if(driverid!=null)
+			drv_id= Integer.parseInt(driverid);
+		
+		String t_type = request.getParameter("selectedtype");
+		String ses_outcome = request.getParameter("outcome");
+		
+		DB_Connection obj_db_con = new DB_Connection();
+		Connection con = obj_db_con.getConnection();
+		PreparedStatement ps = null;
+
+		String query = "UPDATE Sessions SET s_outcome=? WHERE driver_id=? AND training_id IN (SELECT training_id FROM Trainings where training_type=?)";
+		
+		try{
+			ps=con.prepareStatement(query);
+			ps.setString(1, ses_outcome);
+			ps.setInt(2, drv_id);
+			ps.setString(3, t_type);
+			int i = ps.executeUpdate();
+		}catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+					response.sendRedirect("driveroutcome.jsp");
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+}

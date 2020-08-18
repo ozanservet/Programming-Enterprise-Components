@@ -1,0 +1,36 @@
+package com.servlets;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/Operations")
+public class Operations extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{		
+		String op = request.getParameter("selection");
+		
+		if(op.equals("Drivers"))
+			response.sendRedirect("Drivers.jsp");
+		else if(op.equals("Editqualifications"))
+			response.sendRedirect("Qualifications.jsp");
+		else if(op.equals("Edittrainingtype"))
+			response.sendRedirect("Trainings.jsp");
+		else if(op.equals("Sessions"))
+			response.sendRedirect("Sessions.jsp");
+		else if(op.equals("Assign"))
+			response.sendRedirect("Assign.jsp");
+		else if(op.equals("Outcome"))
+			response.sendRedirect("DriverOutcome.jsp");
+		else if(op.equals("Checkdriversstatus"))
+			response.sendRedirect("DriverSelection.jsp");
+		else if(op.equals("Expiring30days"))
+			response.sendRedirect("Expiring30days.jsp");
+	}
+
+}

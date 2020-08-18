@@ -1,0 +1,101 @@
+package com.servlets;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
+@WebServlet("/DriverProfile")
+public class DriverProfile extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String drv_id = request.getParameter("did");
+		int d_id = 0;
+		if(drv_id!=null)
+			d_id= Integer.parseInt(drv_id);
+		
+		Connection con = null;
+		try
+		{
+			InitialContext ic = new InitialContext();
+			DataSource ds = (DataSource)ic.lookup("java:/MySqlDS");
+			con = ds.getConnection();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		
+		String query = "Select training_type, training_id AS t_id from Trainings where certificate_expire_date >= ? AND training_id IN (SELECT training_id FROM Sessions WHERE driver_id=?)";
+				
+		List<String> tlist = new ArrayList<String>();
+		List<String> qlist = new ArrayList<String>();
+		try{
+			ps = con.prepareStatement(query);
+			ps.setDate(1, java.sql.Date.valueOf(dateFormat.format(date)));
+			ps.setInt(2,d_id);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				String tid = rs.getString("training_type");
+				tlist.add(tid);
+			}
+		}catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		request.setAttribute("tidlist", tlist);
+		request.setAttribute("driver_id", d_id);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("dqDispacther");
+		
+		query = "Select qualification_type, qualification_id AS q_id from Qualifications where certificate_expire_date >= ? AND qualification_id IN (SELECT qualification_id FROM Drivers_Qualifications WHERE driver_id=?)";
+		try{
+			ps = con.prepareStatement(query);
+			ps.setDate(1, java.sql.Date.valueOf(dateFormat.format(date)));
+			ps.setInt(2,d_id);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				String qid = rs.getString("qualification_type");
+				qlist.add(qid); 
+			}
+			request.setAttribute("qidlist", qlist);
+			request.getRequestDispatcher("driverprofile.jsp").forward(request,response);
+		}catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+}

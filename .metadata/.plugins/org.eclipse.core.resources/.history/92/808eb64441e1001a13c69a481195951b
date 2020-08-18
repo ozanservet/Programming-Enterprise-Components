@@ -1,0 +1,71 @@
+package com.servlets;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
+@WebServlet("/AddDisciplinaryRec")
+public class AddDisciplinaryRec extends HttpServlet {
+
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+		String drv_id = request.getParameter("did");
+		int d_id = 0;
+		if(drv_id!=null)
+			d_id= Integer.parseInt(drv_id);
+		
+		String record = request.getParameter("reason");
+
+		Connection con = null;
+		try
+		{
+			InitialContext ic = new InitialContext();
+			DataSource ds = (DataSource)ic.lookup("java:/MySqlDS");
+			con = ds.getConnection();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		
+		String query = "INSERT INTO Disciplinary_Record (driver_id, reason) VALUES (?,?)";
+		
+		try{
+			ps = con.prepareStatement(query);
+			ps.setInt(1,d_id);
+			ps.setString(2,record);
+			ps.executeUpdate();
+			
+		}catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}finally {
+			if (con != null) {
+				try {
+					con.close();
+					response.sendRedirect("newdisciplinaryrecord.jsp");
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+}
